@@ -33,7 +33,6 @@ public class Recursion {
 
         // The function calculate fibonacci value at given position
         System.out.println(fibonacci(4));
-
     }
 
 }

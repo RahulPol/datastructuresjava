@@ -25,9 +25,17 @@ interface LinkedListADT {
      * 
      * @param n   Node to be inserted
      * @param pos Position at which node to be inserted
-     * @return Success or failure
+     * @return success or failure
      */
     boolean Insert(Node n, int pos);
+
+    /**
+     * Deletes node from singly linked list at givn position
+     * 
+     * @param pos position
+     * @return success or failure
+     */
+    boolean Delete(int pos);
 
 }
 
@@ -81,8 +89,9 @@ class LinkedList implements LinkedListADT {
      * Steps 1: If LL is empty then the position must be 0. If yes then insert else
      * return failure
      * 
-     * Step 2: If LL is not empty then traverse at given position and insert node at
-     * the position
+     * Step 2: If the position is 1 then handle insert at beginning
+     * 
+     * Step 3: Traverse at given position and insert node at that position
      */
     @Override
     public boolean Insert(Node n, int pos) {
@@ -103,6 +112,14 @@ class LinkedList implements LinkedListADT {
             Node t = this.root;
             Node prev = this.root;
             int index = 1;
+
+            // Insert at beginning
+            if (pos == 1) {
+                this.root = n;
+                n.next = t;
+                return true;
+            }
+
             // loop through linked list untile the position is found or linked list empty.
             while (t != null && index != pos) {
                 prev = t;
@@ -119,6 +136,14 @@ class LinkedList implements LinkedListADT {
 
     }
 
+    /**
+     * 
+     */
+    @Override
+    public boolean Delete(int pos) {
+        return false;
+    }
+
 }
 
 /**
@@ -127,17 +152,18 @@ class LinkedList implements LinkedListADT {
 public class LinkedListImpl {
     public static void main(String[] args) {
         LinkedList l1 = new LinkedList();
-        l1.Print(); // Print empty linked list
-        l1.Insert(new Node(10), 0); // Insert at root postion
+        l1.Print(); // Null. Print empty linked list
+        l1.Insert(new Node(10), 0); // 10 -> Null. Insert at root postion
 
         if (l1.Insert(new Node(234), 5)) {
             l1.Print(); // this statement will never execute
         }
 
-        l1.Insert(new Node(30), 2);
-        l1.Insert(new Node(40), 3);
-        l1.Insert(new Node(50), 4);
-        l1.Insert(new Node(20), 2);
+        l1.Insert(new Node(30), 2); // 10 -> 30 -> Null.
+        l1.Insert(new Node(40), 3); // 10 -> 30 -> 40 -> Null.
+        l1.Insert(new Node(50), 4); // 10 -> 30 -> 40 -> 50 -> Null.
+        l1.Insert(new Node(20), 2); // 10 -> 20 -> 30 -> 40 -> 50 -> Null.
+        l1.Insert(new Node(1), 1); // 1 -> 10 -> 20 -> 30 -> 40 -> 50 -> Null.
         l1.Print();
     }
 }
